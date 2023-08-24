@@ -18,7 +18,7 @@ function game(){
       document.getElementsByClassName("playerScore")[0].textContent = playerScore;
     }
 
-    else{
+    else if(resultOfRound.includes("lose")){
       computerScore++;
       document.getElementsByClassName("computerScore")[0].textContent = computerScore;
     }
@@ -26,15 +26,7 @@ function game(){
     document.getElementsByClassName("roundResult")[0].textContent = resultOfRound;
   });
 
-  // if(playerScore > computerScore){
-  //   document.getElementsByClassName("endGameText")[0].textContent = "You won! Refresh to play again."
-  // }
-
-  // else{
-  //   document.getElementsByClassName("endGameText")[0].textContent = "You lost! Refresh to play again."
-  // }
 }
-
 
 // Rock beats scissors
 // Scissors beats paper
