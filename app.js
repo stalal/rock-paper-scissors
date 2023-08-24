@@ -3,6 +3,7 @@
 // Paper beats rock 
 
 game();
+const buttons = document.querySelectorAll('input');
 
 function game(){
 
@@ -11,7 +12,17 @@ function game(){
 
   getPlayerChoice(function() {
     let computerChoice = getComputerChoice();
-    let resultOfRound = gameRound(playerChoice, computerChoice);;
+    let resultOfRound = gameRound(playerChoice, computerChoice);
+
+    if(playerScore == 5){
+      document.getElementsByClassName("endGameText")[0].textContent = "You win! Refresh to play again";
+      disableButtons();
+    }
+
+    else if(computerScore == 5){
+      document.getElementsByClassName("endGameText")[0].textContent = "You lost! Refresh to play again";
+      disableButtons();
+    }
 
     if(resultOfRound.includes("win")){
       playerScore++;
@@ -25,7 +36,6 @@ function game(){
 
     document.getElementsByClassName("roundResult")[0].textContent = resultOfRound;
   });
-
 }
 
 // Rock beats scissors
@@ -88,5 +98,11 @@ function getPlayerChoice(callback){
   Scissors.addEventListener("click", function(){
     playerChoice = "Scissors";
     callback();
+  });
+}
+
+function disableButtons() {
+  buttons.forEach(button => {
+    button.disabled = true;
   });
 }
