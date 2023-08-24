@@ -2,30 +2,39 @@
 // Scissors beats paper
 // Paper beats rock 
 
-// getComputerChoice returns a random choice by a computer
-// select randomly between three numbers, then tie those to rock paper scissors
-// return it (string)
-
-// gameRound takes playerSelection and computerSelection and returns a string with the results of the round and a string "You Lose! Paper beats Rock"
-// prompt to get input from user 
-// pass userChoice and computerChoice to gameRound. 
-
-
-// game function keeps going for 5 rounds until there's a winner
-// use prompt() to get input from the user
-
 game();
 
 function game(){
 
-  let computerChoice = getComputerChoice();
-  let playerChoice = getPlayerChoice();
+  let playerScore = 0;
+  let computerScore = 0;
 
-  // use a loop and run it 5 times
-  let resultOfRound = gameRound(playerChoice, computerChoice);
-  document.getElementsByClassName("roundResult")[0].textContent = resultOfRound;
+  getPlayerChoice(function() {
+    let computerChoice = getComputerChoice();
+    let resultOfRound = gameRound(playerChoice, computerChoice);;
 
+    if(resultOfRound.includes("win")){
+      playerScore++;
+      document.getElementsByClassName("playerScore")[0].textContent = playerScore;
+    }
+
+    else{
+      computerScore++;
+      document.getElementsByClassName("computerScore")[0].textContent = computerScore;
+    }
+
+    document.getElementsByClassName("roundResult")[0].textContent = resultOfRound;
+  });
+
+  // if(playerScore > computerScore){
+  //   document.getElementsByClassName("endGameText")[0].textContent = "You won! Refresh to play again."
+  // }
+
+  // else{
+  //   document.getElementsByClassName("endGameText")[0].textContent = "You lost! Refresh to play again."
+  // }
 }
+
 
 // Rock beats scissors
 // Scissors beats paper
@@ -64,10 +73,28 @@ function gameRound(playerChoice, computerChoice){
 
 function getComputerChoice(){
   let choices = ["Rock", "Paper", "Scissors"];
-  let randomIndex = Math.floor(Math.random()*3)+1;
+  let randomIndex = Math.floor(Math.random()*3);
   return choices[randomIndex];
 }
 
-function getPlayerChoice(){
-  return "Paper";
+function getPlayerChoice(callback){
+
+  let Rock = document.getElementById("Rock");
+  let Paper = document.getElementById("Paper");
+  let Scissors = document.getElementById("Scissors");
+
+  Rock.addEventListener("click", function(){
+    playerChoice = "Rock";
+    callback();
+  });
+
+  Paper.addEventListener("click", function(){
+    playerChoice = "Paper";
+    callback();
+  });
+
+  Scissors.addEventListener("click", function(){
+    playerChoice = "Scissors";
+    callback();
+  });
 }
